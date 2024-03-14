@@ -2,20 +2,19 @@ import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { API } from './global'
 import { Button, TextField } from '@mui/material';
+import axios from 'axios';
 
 export function EditUsers() {
     const { userID } = useParams()
     const [ user, setUser ] = useState()
 
     useEffect(() => {
-        fetch(`${API}/${userID}`, {
-            method: "GET"
-        })
-            .then((res) => res.json())
-            .then((usr) => setUser(usr))
+        axios.get(`${API}/${userID}`)
+            .then((res) => setUser(res.data))
+            .catch((err) => console.error("Error fetching user:", err))
     }, [])
 
-    console.log(user)
+    // console.log(user)
 
     return (
         <div>
@@ -43,13 +42,11 @@ function EditUserForm({ user }) {
         }
         // console.log(updatedUser)
 
-        fetch(`${API}/${user.id}`, {
-            method: "PUT",
-            body: JSON.stringify(updatedUser),
+        axios.put(`${API}/${user.id}`, updatedUser, {
             headers: { 'Content-Type': 'application/json'}
         })
-        .then((res) => res.json())
         .then(()=> navigate("/users"))
+        .catch((err) => console.error("Error updating user:", err))
 
         setName("")
         setUsername("")
@@ -74,16 +71,3 @@ function EditUserForm({ user }) {
         </div>
     )
 }
-
-
-{/* <input type="text" value={name} 
-onChange={(e) => setName(e.target.value)} />
-<input type="text" value={username} 
-onChange={(e) => setUsername(e.target.value)} />
-<input type="text" value={email} 
-onChange={(e) => setEmail(e.target.value)} />
-<input type="text" value={phone} 
-onChange={(e) => setPhone(e.target.value)} />
-<input type="text" value={website} 
-onChange={(e) => setWebsite(e.target.value)} />
-<Button variant="contained" color="success" onClick={handleEditUser}>SAVE</Button> */}

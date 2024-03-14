@@ -1,7 +1,8 @@
-import { Button, TextField } from '@mui/material'
-import React, { useEffect, useState } from 'react'
+// import { Button, TextField } from '@mui/material'
+import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { API } from './global'
+import axios from 'axios'
 
 export function AddUsers() {
 
@@ -22,15 +23,13 @@ export function AddUsers() {
             website,
         }
 
-        console.log(newUser)
+        // console.log(newUser)
 
-        fetch(`${API}`, {
-            method: "POST",
-            body: JSON.stringify(newUser),
+        axios.post(API, newUser, {
             headers: { 'Content-Type': 'application/json'}
         })
-        .then((res) => res.json())
         .then(()=> navigate("/users"))
+        .catch((err) => console.error("Error adding user:", err))
 
     }
 

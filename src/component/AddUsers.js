@@ -1,8 +1,9 @@
-// import { Button, TextField } from '@mui/material'
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { API } from './global'
 import axios from 'axios'
+import { Button, TextField } from '@mui/material';
+
 
 export function AddUsers() {
 
@@ -35,12 +36,19 @@ export function AddUsers() {
 
     return (
         <div className="add-users">
-            <input type="text" placeholder="Name" onChange={(e) => setName(e.target.value)} />
-            <input type="text" placeholder="UserName" onChange={(e) => setUsername(e.target.value)} />
-            <input type="text" placeholder="Email" onChange={(e) => setEmail(e.target.value)} />
-            <input type="text" placeholder="Phone" onChange={(e) => setPhone(e.target.value)} />
-            <input type="text" placeholder="Website" onChange={(e) => setWebsite(e.target.value)} />
-            <button onClick={handleAddUser}>Add User</button>
+            <h1>Add User</h1>
+            <TextField label="Name" variant="outlined" 
+            onChange={(e) => setName(e.target.value)}></TextField>
+            <TextField label="UserName" variant="outlined" 
+            onChange={(e) => setUsername(e.target.value)}></TextField>
+            <TextField label="Email" variant="outlined" 
+            onChange={(e) => setEmail(e.target.value)}></TextField>
+            <TextField label="Phone" variant="outlined" 
+            onChange={(e) => setPhone(e.target.value)}></TextField>
+            <TextField label="Website" variant="outlined" 
+            onChange={(e) => setWebsite(e.target.value)}></TextField>
+            <Button variant="contained" onClick={handleAddUser}>Add User</Button>
         </div>
     )
 }
+

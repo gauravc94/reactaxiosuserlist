@@ -18,7 +18,7 @@ export function EditUsers() {
 
     return (
         <div>
-            <h1>EditUsers</h1>
+            <h1>Edit User</h1>
             {user ? <EditUserForm user={user} /> : "Loading..."}
         </div>
     )

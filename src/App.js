@@ -1,23 +1,30 @@
-import logo from './logo.svg';
+import { AppBar, Button, Toolbar } from '@mui/material';
 import './App.css';
+import { Navigate, Route, Routes, useNavigate } from 'react-router-dom';
+import { UserList } from './component/UserList';
+import { AddUsers } from './component/AddUsers';
+import { NotFoundPage } from './component/NotFoundPage';
+import { EditUsers } from './component/EditUsers';
 
 function App() {
+  const navigate = useNavigate()
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <AppBar position="static" color="secondary">
+        <Toolbar>
+          <Button color="inherit" onClick={() => navigate("/users")}>UserList</Button>
+          <Button color="inherit" onClick={() => navigate("/users/add")}>AddUser</Button>
+        </Toolbar>
+      </AppBar>
+
+      <Routes>
+        <Route path="/" element={<UserList />} />
+        <Route path="/users" element={<UserList />} />
+        <Route path="/users/add" element={<AddUsers />} />
+        <Route path="/users/edit/:userID" element={<EditUsers />} />
+        <Route path="/404" element={<NotFoundPage />} />
+        <Route path="*" element={<Navigate replace to="/404" />} />
+      </Routes>
     </div>
   );
 }
